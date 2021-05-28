@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	seabattle "github.com/mntcalm/Seabattle"
 )
 
 func newGame(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "gameID")
+	fmt.Fprintf(w, genNewGameID())
 }
 
 func next(w http.ResponseWriter, r *http.Request) {
@@ -41,4 +42,8 @@ func main() {
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func genNewGameID() string {
+	return fmt.Sprint(time.Now().Nanosecond()) + "\n"
 }
